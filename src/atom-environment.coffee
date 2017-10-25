@@ -218,7 +218,6 @@ class AtomEnvironment extends Model
 
     if @enablePersistence
       @configStorage = new ConfigStorage({@config, @configDirPath, resourcePath, notificationManager: @notifications})
-      @configStorage.start()
     @config.initialize({configFilePath: ConfigStorage.createConfigFilePath(@configDirPath), projectHomeSchema: ConfigSchema.projectHome})
 
     @menu.initialize({resourcePath})
@@ -239,7 +238,7 @@ class AtomEnvironment extends Model
     @commandInstaller.initialize(@getVersion())
     @autoUpdater.initialize()
 
-    @configStorage?.load()
+    @configStorage?.start()
 
     @themes.loadBaseStylesheets()
     @initialStyleElements = @styles.getSnapshot()
